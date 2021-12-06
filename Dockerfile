@@ -2,7 +2,7 @@ FROM python:3.8
 
 MAINTAINER Lexusobm "dev@mistexapp.com"
 
-COPY .* .
+COPY * .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
