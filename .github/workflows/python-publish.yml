@@ -25,3 +25,8 @@ jobs:
         
     - name: Run tests
       run: python bot.py
+      
+    - name: LS workdir
+      run: |
+        pwd
+        ls -lahs
