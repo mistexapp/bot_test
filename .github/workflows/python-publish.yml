@@ -39,7 +39,7 @@ jobs:
         echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
     
     - name: Deploy with rsync
-      run: rsync -rav --delete build/ $SSH_USER@$REMOTE_HOST:$TARGET
+      run: rsync rsync -avz ./dist/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
       env:
         SSH_USER: ${{ secrets.REMOTE_USER }}
         SSH_SERVER: ${{ secrets.REMOTE_HOST }}
