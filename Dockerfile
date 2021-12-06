@@ -1,6 +1,6 @@
 FROM python:3.8
 
-MAINTANER Lexusobm "dev@mistexapp.com"
+MAINTAINER Lexusobm "dev@mistexapp.com"
 
 COPY .* .
 
