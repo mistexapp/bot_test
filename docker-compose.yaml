@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  bot_vadim:
+    image: lexusobm/bots:testbot
+    volumes:
+      - testbot:/etc/localtime:ro    
+
+volumes:
+  testbot:
