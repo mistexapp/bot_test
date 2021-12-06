@@ -49,6 +49,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.REMOTE_PORT }}
         script: |
-          docker-compose -f ${{ secrets.REMOTE_TARGET }}bot_test/docker-compose.yaml up -d
+          cd ${{ secrets.REMOTE_TARGET }}bot_test/
+          docker-compose down && docker-compose build --pull && docker-compose up -d
           sleep 2
           docker ps
+          # docker-compose -f ${{ secrets.REMOTE_TARGET }}bot_test/docker-compose.yaml up -d
