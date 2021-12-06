@@ -49,5 +49,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.REMOTE_PORT }}
         script: |
-          whoami
-          ls -al /opt/
+          docker-compose -f ${{ secrets.REMOTE_TARGET }}bot_test/docker-compose.yaml up -d
+          sleep 2
+          docker ps
