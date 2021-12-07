@@ -2,6 +2,6 @@ version: '3.9'
 
 services:
   testbot:
-    image: lexusobm/bots:testbot_prod
+    image: lexusobm/bots:testbot_v2
     volumes:
       - /opt/bot_test/data:/home/bot_data
