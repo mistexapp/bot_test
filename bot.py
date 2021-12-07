@@ -1,14 +1,15 @@
 import telebot
+import os
 
-bot = telebot.TeleBot('5054086490:AAHHt6-CCOCfV2O_QLQqlrRG9-qwBGsde2Y')
-chat_id_c = '360873310'
+bot = telebot.TeleBot(os.environ['TG_TOKEN'])
+admin_id = os.environ['TG_ADMIN']
 
 def is_api_group(chat_id):
-    return chat_id_c == chat_id
+    return chat_id == admin_id
 
 
 @bot.message_handler(content_types=["text"])
-def repeat_all_messages(message): # Название функции не играет никакой роли
+def foo(message):
     if is_api_group(str(message.chat.id)):
         bot.send_message(message.chat.id, message.text)
 

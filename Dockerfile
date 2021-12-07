@@ -1,6 +1,7 @@
 FROM python:3.8
 
-MAINTAINER Lexusobm "dev@mistexapp.com"
+ARG TG_TOKEN='5054086490:AAHHt6-CCOCfV2O_QLQqlrRG9-qwBGsde2Y'
+ARG TG_ADMIN='360873310'
 
 COPY * .
 
