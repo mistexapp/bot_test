@@ -30,7 +30,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/bots:testbot_v4.4
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/testbot:5
 
     - name: Create SSH key
       run: |
