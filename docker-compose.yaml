@@ -5,3 +5,6 @@ services:
     image: lexusobm/bots:testbot_v3
     volumes:
       - /opt/bot_test/data:/home/bot_data
+    environment:
+      - TT=${{ secrets.TG_TOKEN }}
+      - TA=${{ secrets.TG_ADMIN }}
