@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   testbot:
-    image: lexusobm/testbot:5
+    image: ${REPO}
     volumes:
       - /opt/bot_test/data:/home/bot_data
     environment:

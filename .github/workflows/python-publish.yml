@@ -51,7 +51,7 @@ jobs:
         script: |
           cd ${{ secrets.REMOTE_TARGET }}bot_test/
           docker-compose down
-          printf "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}\n" > .env
+          printf "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}\nREPO=${{ secrets.DOCKERHUB_USERNAME }}/testbot:5\n" > .env
           docker-compose build --pull && docker-compose up -d
           sleep 2
           docker ps
