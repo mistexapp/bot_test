@@ -30,7 +30,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/bots:testbot_v4.3
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/bots:testbot_v4.4
 
     - name: Create SSH key
       run: |
@@ -51,7 +51,7 @@ jobs:
         script: |
           cd ${{ secrets.REMOTE_TARGET }}bot_test/
           docker-compose down
-          echo "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}" > .env
+          printf "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}\n" > .env
           docker-compose build --pull && docker-compose up -d
           sleep 2
           docker ps

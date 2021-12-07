@@ -2,9 +2,9 @@ version: '3.9'
 
 services:
   testbot:
-    image: lexusobm/bots:testbot_v4.3
+    image: lexusobm/bots:testbot_v4.4
     volumes:
       - /opt/bot_test/data:/home/bot_data
     environment:
-      - TG_TOKEN: ${TG_TOKEN}
-      - TG_ADMIN: ${TG_ADMIN}
+      - TG_TOKEN=${TG_TOKEN}
+      - TG_ADMIN=${TG_ADMIN}
