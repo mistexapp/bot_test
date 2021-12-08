@@ -3,7 +3,7 @@ name: complete-cicd
 on: 
   push:
     branches:
-      - master
+      - 'tests'
 
 jobs:
   build:
