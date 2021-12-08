@@ -1,0 +1,58 @@
+name: complete-cicd
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Clone repo
+      uses: actions/checkout@v2
+    
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/testbot:5
+
+    - name: Create SSH key
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+    
+    - name: Copy with rsync
+      run: rsync -avz --delete --exclude={'Dockerfile','requirements.txt','.git*'} ${{ github.workspace }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
+    
+    - name: Run app
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.REMOTE_PORT }}
+        script: |
+          cd ${{ secrets.REMOTE_TARGET }}bot_test/
+          docker-compose down
+          printf "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}\nREPO=${{ secrets.DOCKERHUB_USERNAME }}/testbot:5\n" > .env
+          docker-compose build --pull && docker-compose up -d
+          sleep 2
+          docker ps
+          #
