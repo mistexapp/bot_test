@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - run: echo "REPO---- $GITHUB_REPOSITORY"
+    - run: echo "REPO---- ${{ github.event.repository.name }}"
 
     - name: Clone repo
       uses: actions/checkout@v2
