@@ -1,10 +1,9 @@
 version: '3.9'
 
 services:
-  testbot:
+  app:
     image: ${REPO}
-    volumes:
-      - /opt/bot_test/data:/home/bot_data
+    container_name: ${SERVICE}
     environment:
       - TG_TOKEN=${TG_TOKEN}
       - TG_ADMIN=${TG_ADMIN}

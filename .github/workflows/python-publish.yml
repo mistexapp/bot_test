@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - run: echo "Building ${{ github.event.repository.name }} project"
+    - run: echo "Building < ${{ github.event.repository.name }} > project"
 
     - name: Clone repo
       uses: actions/checkout@v2
@@ -52,7 +52,11 @@ jobs:
         port: ${{ secrets.REMOTE_PORT }}
         script: |
           cd ${{ secrets.REMOTE_TARGET }}${{ github.event.repository.name }}/
-          docker-compose down
-          printf "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}\nREPO=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}\n" > .env
-          docker-compose build --pull && docker-compose up -d
-          docker logs 
+  
+          printf "TG_TOKEN=${{ secrets.TG_TOKEN }}\nTG_ADMIN=${{ secrets.TG_ADMIN }}\nSERVICE=${{ github.event.repository.name }}\nREPO=${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}\n" > .env
+          
+          docker-compose build --pull --force-rm && docker-compose  up -d
+          docker logs -n 10 ${{ github.event.repository.name }}
+
+          rm .env
+          echo "Bye!"
