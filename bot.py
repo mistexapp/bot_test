@@ -12,7 +12,7 @@ def is_api_group(chat_id):
 @bot.message_handler(content_types=["text"])
 def foo(message):
     if is_api_group(str(message.chat.id)):
-        bot.send_message(message.chat.id, message.text)
+        bot.send_message(message.chat.id, 'ha-ha')
 
 if __name__ == '__main__':
     bot.infinity_polling()
